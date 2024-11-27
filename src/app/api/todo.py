@@ -1,5 +1,7 @@
 import uuid
+
 from fastapi import APIRouter, Depends
+
 from app.repositories.todo_repositories import TodoRepository
 from app.schemas.todo_schema import TodoSchema
 
@@ -29,9 +31,7 @@ async def get_todos(repo: TodoRepository = Depends(TodoRepository)):
 
 
 @router.get("/todos/{id}")
-async def get_todo_id(
-    id: uuid.UUID, repo: TodoRepository = Depends(TodoRepository)
-):
+async def get_todo_id(id: uuid.UUID, repo: TodoRepository = Depends(TodoRepository)):
     """
     Get todos that are in the database by id
     """
@@ -47,16 +47,15 @@ async def update_todo_id(
     """
     Update todo details using their ID that is in the database
     """
-    updated_todo = await repo.update_todo(
-        id, todo.description, todo.status
-    )
-    return updated_todo
+    updated_todo = await repo.update_todo(id, todo.description, todo.status)
+    return updated_todo  # think of including http verbs with a message
+
+
+# include error codes
 
 
 @router.delete("/todos/{id}")
-async def delete_todo_id(
-    id: uuid.UUID, repo: TodoRepository = Depends(TodoRepository)
-):
+async def delete_todo_id(id: uuid.UUID, repo: TodoRepository = Depends(TodoRepository)):
     """
     Delete todo details using their UUID that is stored in the database
     """

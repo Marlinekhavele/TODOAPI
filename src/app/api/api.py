@@ -1,5 +1,6 @@
 from fastapi import APIRouter
-from app.api import todo, health,meta
+
+from app.api import health, meta, todo
 
 api_router = APIRouter()
 api_router.include_router(health.router, tags=["health"])

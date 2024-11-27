@@ -1,11 +1,14 @@
 import uuid
+
 from fastapi import Depends
 from sqlalchemy import select
 from sqlalchemy.exc import NoResultFound
 from sqlalchemy.ext.asyncio import AsyncSession
+
 from app.deps import get_db_session
 from app.models.todo import Todo
-from app.schemas.enums.todo  import TodoStatus
+from app.schemas.enums.todo import TodoStatus
+
 
 class TodoRepository:
     def __init__(self, db: AsyncSession = Depends(get_db_session)):
@@ -14,7 +17,8 @@ class TodoRepository:
     async def create_todo(self, todo_data):
         new_todo = Todo(
             description=todo_data.description,
-            status=TodoStatus(todo_data.status),)
+            status=TodoStatus(todo_data.status),
+        )
         self.db.add(new_todo)
         await self.db.commit()
         await self.db.refresh(new_todo)

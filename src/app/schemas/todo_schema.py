@@ -1,5 +1,7 @@
 from pydantic import BaseModel
-from app.schemas.enums.todo  import TodoStatus
+
+from app.schemas.enums.todo import TodoStatus
+
 
 class TodoSchema(BaseModel):
     description: str
