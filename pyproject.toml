@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "todoapi"
+version = "1"
+description = "Todo API"
+authors = ["Marline Khavele <khavelemarline@gmail.com>"]
+readme = "README.md"
+package-mode = false
+
+
+[tool.poetry.dependencies]
+python = "^3.13"
+fastapi = {extras = ["standard"], version = "^0.115.5"}
+alembic = "^1.14.0"
+pydantic-settings = "^2.6.1"
+psycopg2 = "^2.9.10"
+asyncpg = "^0.30.0"
+
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^4.0.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
