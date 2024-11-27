@@ -1,0 +1,34 @@
+version: "3.3"
+services:
+  todo_app_db:
+    image: postgres:13.3-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=todo
+    ports:
+      - 5432:5432
+    volumes:
+      - todo_app_db:/var/lib/postgresql/data/
+
+
+  todo_test_db:
+    image: postgres:13.3-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=test_db
+    ports:
+      - 5433:5432
+    volumes:
+      - todo_test_db:/var/lib/postgresql/data/
+
+
+volumes:
+  todo_app_db:
+    driver: "local"
+    name: "todo_app_db"
+
+  todo_test_db:
+    driver: "local"
+    name: "todo_test_db"

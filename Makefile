@@ -32,7 +32,7 @@ serve:
 	cd src && poetry run uvicorn app.main:app --reload --port ${SERVER_PORT}
 
 start:
-	docker-compose up -d todo-db  
+	docker-compose up -d todo_app_db
 
 # Stop docker-compose
 stop:
