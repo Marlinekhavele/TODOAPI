@@ -1,6 +1,7 @@
 import uuid
-from fastapi import APIRouter, Depends
-from fastapi import HTTPException
+
+from fastapi import APIRouter, Depends, HTTPException
+
 from app.repositories.todo_repositories import TodoRepository
 from app.schemas.todo_schema import TodoSchema
 

@@ -42,12 +42,12 @@ async def test_update_todo_id(client: AsyncClient):
         "description": "smoking break",
         "status": "Open",
     }
-    
+
     response = await client.post(f"{TEST_BASE_URL}/api/todos/", json=todo_data)
-    
+
     todo_response = response.json()
     assert "id" in todo_response
-    todo_id = todo_response["id"] 
+    todo_id = todo_response["id"]
     update_data = {
         **todo_data,
         "description": "smoking break",
@@ -57,7 +57,7 @@ async def test_update_todo_id(client: AsyncClient):
         f"{TEST_BASE_URL}/api/todos/{todo_id}",
         json=update_data,
     )
-    
+
     # Check the update response
     assert response.status_code == 200
     updated_todo = response.json()
@@ -84,6 +84,3 @@ async def test_delete_todo_id(client: AsyncClient):
     # Perform deletion
     delete_response = await client.delete(f"{TEST_BASE_URL}/api/todos/{todo_id}")
     assert delete_response.status_code == 204
-
- 
-

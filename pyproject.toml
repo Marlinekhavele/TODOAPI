@@ -25,6 +25,29 @@ pytest = "^8.3.3"
 pre-commit = "^4.0.1"
 pytest-asyncio = "^0.24.0"
 
+[tool.black]
+line-length = 90
+target-version = ['py38']
+include = '\.pyi?$'
+
+[tool.isort]
+profile = "black"
+
+[tool.coverage.run]
+branch = true
+omit = [
+    "**/alembic/**/*.py",
+    "**/config/**/*.py",
+    "**/tests/**/*.py",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "if TYPE_CHECKING:",
+    "raise NotImplementedError",
+]
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"

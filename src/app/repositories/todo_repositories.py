@@ -38,9 +38,7 @@ class TodoRepository:
         except NoResultFound:
             return None
 
-    async def update_todo(
-        self, todo_id: uuid.UUID, description: str, status: TodoStatus
-    ):
+    async def update_todo(self, todo_id: uuid.UUID, description: str, status: TodoStatus):
         todo_obj = await self.get_todo_by_id(todo_id)
         if todo_obj:
             todo_obj.description = description
