@@ -38,9 +38,11 @@ pip-log.txt
 pip-delete-this-directory.txt
 
 # Unit test / coverage reports
+.flake8
 htmlcov/
 .tox/
 .nox/
+.test-reports/
 .coverage
 .coverage.*
 .cache

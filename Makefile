@@ -15,7 +15,7 @@ test: migrate-local
 	poetry run pytest 
 
 test-with-coverage: migrate-local
-	poetry run pytest src/tests --cov=src/app --cov-report term-missing:skip-covered --cov-report xml:.test-reports/coverage.xml --junitxml=.test-reports/test-run.xml
+	poetry run pytest src/app/tests --cov=src/app --cov-report term-missing:skip-covered --cov-report xml:.test-reports/coverage.xml --junitxml=.test-reports/test-run.xml
 
 # check-types:
 # 	poetry run mypy src/app

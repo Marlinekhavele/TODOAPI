@@ -7,5 +7,5 @@ class TodoSchema(BaseModel):
     description: str
     status: TodoStatus
 
-    class Config:
+    class Config:  # remove this is deprecated
         use_enum_values = True
