@@ -1,7 +1,6 @@
 import uuid
-
 from fastapi import APIRouter, Depends
-
+from fastapi import HTTPException
 from app.repositories.todo_repositories import TodoRepository
 from app.schemas.todo_schema import TodoSchema
 
@@ -54,10 +53,9 @@ async def update_todo_id(
 # include error codes
 
 
-@router.delete("/todos/{id}")
+@router.delete("/todos/{id}", status_code=204)
 async def delete_todo_id(id: uuid.UUID, repo: TodoRepository = Depends(TodoRepository)):
-    """
-    Delete todo details using their UUID that is stored in the database
-    """
     deleted_todo = await repo.delete_todo(id)
+    if not deleted_todo:
+        raise HTTPException(status_code=404, detail="Todo not found")
     return deleted_todo

@@ -33,7 +33,7 @@ class TodoRepository:
         try:
             query = select(Todo).filter(Todo.id == todo_id)
             result = await self.db.execute(query)
-            todo_obj = result.scalar_one()
+            todo_obj = result.scalar_one_or_none()
             return todo_obj
         except NoResultFound:
             return None
@@ -51,5 +51,7 @@ class TodoRepository:
     async def delete_todo(self, todo_id: uuid.UUID):
         todo_obj = await self.get_todo_by_id(todo_id)
         if todo_obj:
-            self.db.delete(todo_obj)
+            await self.db.delete(todo_obj)
             await self.db.commit()
+            return todo_obj
+        return None  # Item doesn't exist
