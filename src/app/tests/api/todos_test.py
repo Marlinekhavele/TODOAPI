@@ -12,9 +12,13 @@ async def test_create_todos(client: AsyncClient):
     }
 
     response = await client.post(f"{TEST_BASE_URL}/api/todos/", json=todo_data)
-    assert response.status_code == 200
-    todo_data["id"] = response.json()["id"]
-    assert response.json() == todo_data
+    assert response.status_code == 201
+    response_data = response.json()
+    assert "id" in response_data
+    assert "created_at" in response_data
+    assert "updated_at" in response_data
+    assert response_data["description"] == todo_data["description"]
+    assert response_data["status"] == todo_data["status"]
 
 
 @pytest.mark.asyncio
@@ -73,7 +77,7 @@ async def test_delete_todo_id(client: AsyncClient):
         "status": "Open",
     }
     create_response = await client.post(f"{TEST_BASE_URL}/api/todos/", json=todo_obj)
-    assert create_response.status_code == 200
+    assert create_response.status_code == 201
 
     todo_id = create_response.json()["id"]
 

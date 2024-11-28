@@ -64,11 +64,11 @@ async def update_todo_id(
     return updated_todo
 
 
-@router.delete("/todos/{id}", response_model=TodoResponse, status_code=status.HTTP_200_OK)
+@router.delete("/todos/{id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_todo_id(id: uuid.UUID, repo: TodoRepository = Depends(TodoRepository)):
     deleted_todo = await repo.delete_todo(id)
     if not deleted_todo:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail="Todo not found"
         )
-    return deleted_todo
+    return None
