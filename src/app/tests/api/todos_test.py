@@ -7,6 +7,7 @@ from conftest import TEST_BASE_URL
 @pytest.mark.asyncio
 async def test_create_todos(client: AsyncClient):
     todo_data = {
+        "title": "Dinner",
         "description": "Make Chapati",
         "status": "Open",
     }
@@ -17,6 +18,7 @@ async def test_create_todos(client: AsyncClient):
     assert "id" in response_data
     assert "created_at" in response_data
     assert "updated_at" in response_data
+    assert response_data["title"] == todo_data["title"]
     assert response_data["description"] == todo_data["description"]
     assert response_data["status"] == todo_data["status"]
 
@@ -31,6 +33,7 @@ async def test_get_todos(client: AsyncClient):
 async def test_get_todo_id(client: AsyncClient):
     # ensure todo exists before getting
     todo_obj = {
+        "title": "Dinner",
         "description": "Make dinner",
         "id": "55602bab-b1c6-412e-8489-f8ec881e7b95",
         "status": "Open",
@@ -43,6 +46,7 @@ async def test_get_todo_id(client: AsyncClient):
 @pytest.mark.asyncio
 async def test_update_todo_id(client: AsyncClient):
     todo_data = {
+        "title": "short break",
         "description": "smoking break",
         "status": "Open",
     }
@@ -54,6 +58,7 @@ async def test_update_todo_id(client: AsyncClient):
     todo_id = todo_response["id"]
     update_data = {
         **todo_data,
+        "title": "short break",
         "description": "smoking break",
         "status": "Cancelled",
     }
@@ -65,6 +70,7 @@ async def test_update_todo_id(client: AsyncClient):
     # Check the update response
     assert response.status_code == 200
     updated_todo = response.json()
+    assert updated_todo["title"] == "short break"
     assert updated_todo["description"] == "smoking break"
     assert updated_todo["status"] == "Cancelled"
 
@@ -73,6 +79,7 @@ async def test_update_todo_id(client: AsyncClient):
 async def test_delete_todo_id(client: AsyncClient):
     # Create a todo to delete
     todo_obj = {
+        "title": "Dinner",
         "description": "Make dinner",
         "status": "Open",
     }
