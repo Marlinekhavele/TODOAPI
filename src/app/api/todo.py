@@ -56,7 +56,7 @@ async def update_todo_id(
     """
     Update todo details using their ID that is in the database
     """
-    updated_todo = await repo.update_todo(id, todo.description, todo.status)
+    updated_todo = await repo.update_todo(id, todo.title, todo.description, todo.status)
     if not updated_todo:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail="Todo not found"

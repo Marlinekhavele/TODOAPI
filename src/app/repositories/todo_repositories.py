@@ -1,8 +1,8 @@
 import uuid
+from datetime import datetime
 
 from fastapi import Depends
 from sqlalchemy import select
-from sqlalchemy.exc import NoResultFound
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.deps import get_db_session
@@ -49,32 +49,22 @@ class TodoRepository:
             for todo in todos
         ]
 
-    async def get_todo_by_id(self, todo_id: uuid.UUID) -> TodoResponse:
-        try:
-            query = select(Todo).filter(Todo.id == todo_id)
-            result = await self.db.execute(query)
-            todo_obj = result.scalar_one_or_none()
-            if todo_obj:
-                return TodoResponse(
-                    id=todo_obj.id,
-                    title=todo_obj.title,
-                    description=todo_obj.description,
-                    status=todo_obj.status,
-                    created_at=todo_obj.created_at,
-                    updated_at=todo_obj.updated_at,
-                )
-            return None
-        except NoResultFound:
-            return None
+    async def get_todo_by_id(self, todo_id: uuid.UUID) -> Todo:
+        query = select(Todo).filter(Todo.id == todo_id)
+        result = await self.db.execute(query)
+        return result.scalar_one_or_none()
 
     async def update_todo(
-        self, todo_id: uuid.UUID, description: str, status: TodoStatus
+        self, todo_id: uuid.UUID, title: str, description: str, status: TodoStatus
     ) -> TodoResponse:
         todo_obj = await self.get_todo_by_id(todo_id)
         if todo_obj:
+            todo_obj.title = title
             todo_obj.description = description
             todo_obj.status = status
+            todo_obj.updated_at = datetime.utcnow()  # Manually update the timestamp
             await self.db.commit()
+            await self.db.refresh(todo_obj)  # Refresh to get the updated data
             return TodoResponse(
                 id=todo_obj.id,
                 title=todo_obj.title,
