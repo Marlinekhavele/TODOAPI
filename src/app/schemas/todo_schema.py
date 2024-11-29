@@ -7,6 +7,7 @@ from app.schemas.enums.todo import TodoStatus
 
 
 class TodoSchema(BaseModel):
+    title: str
     description: str
     status: TodoStatus
 

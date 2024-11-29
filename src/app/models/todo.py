@@ -18,6 +18,7 @@ class Todo(Base):
         ),
     )
     id = sa.Column(UUID(as_uuid=True), default=uuid4)
+    title = sa.Column(sa.String(30))
     description = sa.Column(sa.String(200))
     status = sa.Column(sa.Enum(TodoStatus))
     created_at = sa.Column(sa.DateTime, server_default=func.now(), nullable=False)

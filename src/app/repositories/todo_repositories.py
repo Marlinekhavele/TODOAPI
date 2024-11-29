@@ -18,6 +18,7 @@ class TodoRepository:
     async def create_todo(self, todo_data) -> TodoResponse:
         # Create a new Todo object
         new_todo = Todo(
+            title=todo_data.title,
             description=todo_data.description,
             status=TodoStatus(todo_data.status),
         )
@@ -26,6 +27,7 @@ class TodoRepository:
         await self.db.refresh(new_todo)
         return TodoResponse(
             id=new_todo.id,
+            title=todo_data.title,
             description=new_todo.description,
             status=new_todo.status,
             created_at=new_todo.created_at,
@@ -38,6 +40,7 @@ class TodoRepository:
         return [
             TodoResponse(
                 id=todo.id,
+                title=todo.title,
                 description=todo.description,
                 status=todo.status,
                 created_at=todo.created_at,
@@ -54,6 +57,7 @@ class TodoRepository:
             if todo_obj:
                 return TodoResponse(
                     id=todo_obj.id,
+                    title=todo_obj.title,
                     description=todo_obj.description,
                     status=todo_obj.status,
                     created_at=todo_obj.created_at,
@@ -73,6 +77,7 @@ class TodoRepository:
             await self.db.commit()
             return TodoResponse(
                 id=todo_obj.id,
+                title=todo_obj.title,
                 description=todo_obj.description,
                 status=todo_obj.status,
                 created_at=todo_obj.created_at,
@@ -89,6 +94,7 @@ class TodoRepository:
             await self.db.commit()
             return TodoResponse(
                 id=todo_obj.id,
+                title=todo_obj.title,
                 description=todo_obj.description,
                 status=todo_obj.status,
                 created_at=todo_obj.created_at,
