@@ -18,4 +18,4 @@ class TodoResponse(TodoSchema):
     created_at: datetime
     updated_at: datetime
 
-    model_config = {"orm_mode": True, "use_enum_values": True}
+    model_config = {"form_attributes": True, "use_enum_values": True}
