@@ -31,16 +31,26 @@ async def test_get_todos(client: AsyncClient):
 
 @pytest.mark.asyncio
 async def test_get_todo_id(client: AsyncClient):
-    # ensure todo exists before getting
+    # Create a todo
     todo_obj = {
         "title": "Dinner",
         "description": "Make dinner",
-        "id": "55602bab-b1c6-412e-8489-f8ec881e7b95",
         "status": "Open",
     }
-    await client.post(f"{TEST_BASE_URL}/api/todos/", json=todo_obj)
-    get_response = await client.get(f"{TEST_BASE_URL}/api/todos/")
+    create_response = await client.post(f"{TEST_BASE_URL}/api/todos/", json=todo_obj)
+    assert create_response.status_code == 201
+    created_todo = create_response.json()
+
+    # Fetch the specific todo by ID
+    get_response = await client.get(f"{TEST_BASE_URL}/api/todos/{created_todo['id']}")
     assert get_response.status_code == 200
+    fetched_todo = get_response.json()
+
+    # Verify the fetched todo matches the created one
+    assert fetched_todo["id"] == created_todo["id"]
+    assert fetched_todo["title"] == todo_obj["title"]
+    assert fetched_todo["description"] == todo_obj["description"]
+    assert fetched_todo["status"] == todo_obj["status"]
 
 
 @pytest.mark.asyncio
