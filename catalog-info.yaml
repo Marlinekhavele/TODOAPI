@@ -1,72 +1,62 @@
-#
+---
 # System Entity
-#
 apiVersion: backstage.io/v1alpha1
 kind: System
 metadata:
-  namespace: todo-app
+  namespace: default
   name: todo-system
   title: Todo System
   description: System managing the Todo application
 spec:
-  owner: user:marlinekhavele
+  owner: user:default/marlinekhavele
 
 ---
-#
 # Service Component Entity
-#
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  namespace: todo-app
+  namespace: default
   name: todo-api
   title: Todo API Microservice
   description: Backend service for the Todo API built with Django REST Framework
   annotations:
     github.com/project-slug: Marlinekhavele/TODOAPI
-    backstage.io/techdocs-ref: dir:.
 spec:
   type: service
-  owner: user:marlinekhavele
+  owner: user:default/marlinekhavele
   system: todo-system
   lifecycle: production
   providesApis:
     - todo-api
   dependsOn:
-    - resource:todo-db
-
+    - resource:default/todo 
 ---
-#
-# Database Resource Entity
-#
 apiVersion: backstage.io/v1alpha1
 kind: Resource
 metadata:
-  namespace: todo
+  namespace: default
   name: todo
-  title: Todo API Database
+  title: Todo Database
   description: The database for the Todo API microservice
 spec:
   type: database
-  owner: user:marlinekhavele
+  owner: user:default/marlinekhavele
   system: todo-system
   lifecycle: production
 
 ---
-#
 # API Entity
-#
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
-  namespace: todo-app
+  namespace: default
   name: todo-api
   title: Todo API
   description: API for managing Todo items
 spec:
   type: openapi
   lifecycle: production
-  owner: user:marlinekhavele
+  owner: user:default/marlinekhavele
   system: todo-system
   definition:
     $text: |
