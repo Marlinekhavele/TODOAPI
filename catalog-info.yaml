@@ -8,7 +8,7 @@ metadata:
 spec:
   type: service
   lifecycle: production
-  owner: user:marlinekhavele
-  system: todo-system
+  owner: user:default/marlinekhavele  
+  system: system:default/todo-system  
   providesApis:
-    - todo-api
+    - api:default/todo-api        
