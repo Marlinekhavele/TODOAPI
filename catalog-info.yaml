@@ -58,7 +58,7 @@ spec:
   lifecycle: production
   owner: user:guest
   system: todo-system
-  definition: "https://github.com/Marlinekhavele/TODOAPI/blob/main/docs/openapi.json"
+  definition: "https://raw.githubusercontent.com/Marlinekhavele/TODOAPI/main/docs/openapi.json"
 
 
 
