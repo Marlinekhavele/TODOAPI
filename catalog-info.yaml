@@ -8,7 +8,7 @@ metadata:
   title: Todo System
   description: System managing the Todo application
 spec:
-  # owner: user:default/marlinekhavele
+  owner: user:default/marlinekhavele
 
 ---
 # Service Component Entity
@@ -23,7 +23,7 @@ metadata:
     github.com/project-slug: Marlinekhavele/TODOAPI
 spec:
   type: service
-  # owner: user:default/marlinekhavele
+  owner: user:default/marlinekhavele
   system: todo-system
   lifecycle: production
   providesApis:
@@ -40,7 +40,7 @@ metadata:
   description: The database for the Todo API microservice
 spec:
   type: database
-  # owner: user:default/marlinekhavele
+  owner: user:default/marlinekhavele
   system: todo-system
   lifecycle: production
 
@@ -56,7 +56,7 @@ metadata:
 spec:
   type: openapi
   lifecycle: production
-  # owner: user:default/marlinekhavele
+  owner: user:default/marlinekhavele
   system: todo-system
 
 
