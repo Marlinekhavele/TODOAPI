@@ -1,0 +1,14 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: todo-api
+  description: A Todo API built with Django REST Framework
+  annotations:
+    github.com/project-slug: Marlinekhavele/TODOAPI
+spec:
+  type: service
+  lifecycle: production
+  owner: user:marlinekhavele
+  system: todo-system
+  providesApis:
+    - todo-api
