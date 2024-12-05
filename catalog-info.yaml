@@ -58,4 +58,6 @@ spec:
   lifecycle: production
   # owner: user:default/marlinekhavele
   system: todo-system
-
+  definition:
+    $text: |
+      {"openapi": "3.0.0", "info": {"title": "Todo API", "version": "1.0.0"}}
